@@ -1,6 +1,6 @@
 [project]
 name = "ep-petrophysics"
-version = "0.1.0"
+version = "1.0.0"
 description = "Petrophysical interpretation outputs, rock-physics (LFP) logs, facies, log response, core analysis and special core analysis, cased-hole logs."
 readme = "README.md"
 license = { file = "LICENSE" }
