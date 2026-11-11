@@ -4,7 +4,7 @@ import ast
 from pathlib import Path
 
 PACKAGE = Path(__file__).resolve().parents[1] / "src" / "ep_petrophysics"
-ALLOWED_LIBRARIES = ['ep_fluids', 'ep_petrophysics', 'ep_physics_base']
+ALLOWED_LIBRARIES = ['ep_pressure_pvt_fluids', 'ep_petrophysics', 'ep_physics_base']
 FORBIDDEN = {"src", "knowledge", "ep_knowledge"}
 
 

@@ -14,12 +14,12 @@ dependencies = [
     "scipy",
     "pyyaml",
     "ep-physics-base",
-    "ep-fluids",
+    "ep-pressure-pvt-fluids",
 ]
 
 [tool.uv.sources]
 ep-physics-base = { git = "https://github.com/AdmcCarthy/ep-physics-base" }
-ep-fluids = { git = "https://github.com/AdmcCarthy/ep-fluids" }
+ep-pressure-pvt-fluids = { git = "https://github.com/AdmcCarthy/ep-pressure-pvt-fluids" }
 
 [build-system]
 requires = ["uv_build>=0.13.6,<0.14.0"]

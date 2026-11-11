@@ -10,7 +10,7 @@ Petrophysical interpretation outputs, rock-physics (LFP) logs, facies, log respo
 uv add git+https://github.com/AdmcCarthy/ep-petrophysics
 ```
 
-Depends on: `ep-physics-base`, `ep-fluids`. Optional extras:
+Depends on: `ep-physics-base`, `ep-pressure-pvt-fluids`. Optional extras:
 
 none
 
