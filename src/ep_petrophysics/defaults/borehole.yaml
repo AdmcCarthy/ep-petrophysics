@@ -1,4 +1,4 @@
-# Borehole size, calipers and casing points (docs/borehole.md, src/processing/borehole.py).  Every threshold here is an ASSUMPTION (placeholder) until a source states it: the classes are screening labels, never a
+# Borehole size, calipers and casing points.  Every threshold here is an ASSUMPTION (placeholder) until a source states it: the classes are screening labels, never a
 # verdict on a hole.  Ratios are caliper diameter / bit size of the same section.
 condition:
   tight_below: 0.97          # caliper below this share of the bit size: under gauge (swelling or mud cake, or a worn bit / caliper offset)
@@ -12,7 +12,7 @@ max_md_m: 12000.0          # a parameter depth above this is a placeholder (1524
 min_coverage: 0.3          # a section statistic needs bins over this share of the declared section length (a run that only reaches the section's tail has not logged it)
 min_bins: 5                 # a section statistic needs at least this many 1 m bins, else it is blank
 casing:
-  shoe_tolerance_m: 25.0     # a bit-size section starts within this distance of a casing shoe (log depths and report depths differ by rig moves, datum and rounding; Adam: RT/RKB, monitored)
+  shoe_tolerance_m: 25.0     # a bit-size section starts within this distance of a casing shoe (log depths and report depths differ by rig moves, datum and rounding; the maintainer: RT/RKB, monitored)
   clearance_min_mm: 5.0      # a casing outer diameter this close to, or larger than, the hole it was run in is flagged (hole smaller than casing: depth or size mismatch)
 cased_hole:
   tolerance_mm: 12.0         # caliper minus casing inner diameter inside this band is "agrees" (a pipe caliper reads the inner diameter; wear and scale lower it, corrosion raises it)
@@ -25,7 +25,7 @@ pretest:
 log_response:
   min_coverage: 0.5                  # a response statistic needs log bins over this share of the interval length
 tops:
-  precedence: picks                  # picks | sodir | both. Adam, 2026-11-06: the interpretation picks rank above or equal to the Sodir tops; to be reviewed with other sources
+  precedence: picks                  # picks | sodir | both. the maintainer, 2026-11-06: the interpretation picks rank above or equal to the Sodir tops; to be reviewed with other sources
 
 # Cement bond (integrity logs) and production logging: limits are ASSUMPTIONS until a reviewed source states them (requests req.101, req.102); a bond class is not a barrier verdict
 cement:

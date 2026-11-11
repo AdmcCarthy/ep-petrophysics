@@ -1,6 +1,6 @@
 # Petrophysical interpretation outputs (Volve)
 
-Family `petrophysics_outputs` (switch in `config/pipeline_config.yaml`, section `petro_outputs` of `config/adapters/volve.yaml`, code `src/ingest/petrophysics.py`, `src/processing/petrophysics.py`, notebook 40, tests `tests/test_petrophysics.py`). Run alone with `uv run python scripts/volve_check.py --family petrophysics_outputs`.
+Family `petrophysics_outputs` (switch in `config/pipeline_config.yaml`, section `petro_outputs` of `config/adapters/volve.yaml`, code `petrophysics`, `petrophysics`, the analysis notebooks, tests `tests/test_petrophysics.py`). Run alone with `uv run python scripts/volve_check.py --family petrophysics_outputs`.
 
 ## What is read
 | Source (folder `05.PETROPHYSICAL INTERPRETATION`) | Content | Marts |
@@ -15,7 +15,7 @@ Family `petrophysics_outputs` (switch in `config/pipeline_config.yaml`, section 
 * The reports state no net criterion: the sand flag stands in for net (assumption); formation intervals come from the interpretation picks (the Sodir tops of the F-wells are missing); an interval that runs to the last curve sample is flagged.
 * DLIS depth index `0.1 in` is converted; values are read by name; nothing is dropped.
 
-## Findings (notebook 40)
+## Findings
 * One model everywhere: 43 of 51 parameter and formation combinations are identical in every report; only the gamma-ray baselines vary per well.
 * The permeability log is the report's arithmetic in 7 of 8 checked wellbores (at most 1 % of samples outside the three transforms and the floor); in 15/9-F-4, 58 % of the samples (3,220-3,495 m) follow another transform (fit: log10 K = 12.1 PHIF - 9.0 VSH + 1.15, R squared 0.94) than the one the report prints (8 PHIF in the Hugin).
 * Where the interval is between picks, the logs reproduce the report's mean porosity to 0.002 and water saturation to 0.06; net to gross differs by up to 0.10.

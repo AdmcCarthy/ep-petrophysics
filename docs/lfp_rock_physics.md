@@ -1,6 +1,6 @@
 # Rock-physics (LFP) logs (Volve 15/9-19 A, BT2, SR)
 
-Family `lfp_rock_physics` (switch in `config/pipeline_config.yaml`, section `lfp` of `config/adapters/volve.yaml`, code `src/ingest/lfp.py`, `src/processing/lfp.py`, notebook 41, tests `tests/test_lfp.py`). Run alone with `uv run python scripts/volve_check.py --family lfp_rock_physics`.
+Family `lfp_rock_physics` (switch in `config/pipeline_config.yaml`, section `lfp` of `config/adapters/volve.yaml`, code `lfp`, `lfp`, the analysis notebooks, tests `tests/test_lfp.py`). Run alone with `uv run python scripts/volve_check.py --family lfp_rock_physics`.
 
 ## What is read
 | Source (folder `06.LFP`) | Content | Marts |
@@ -15,7 +15,7 @@ Family `lfp_rock_physics` (switch in `config/pipeline_config.yaml`, section `lfp
 * The sand flag stands for net sand (assumption); the Hugin interval is the interpreter's listing, not the Sodir tops.
 * The meaning of the suffixes `_V`, `_LOG`, `_SYNT`, `_GC` is not stated in the files.
 
-## Findings (notebook 41)
+## Findings
 * Impedance = density x velocity and velocity = 304,800 / sonic slowness hold for all samples of 15/9-19 A and BT2.
 * In the Hugin net sand, oil instead of brine lowers the P-impedance by 5.9-6.3 %, gas by 10.0-10.7 %; the velocity changes 3.4-4.5 %, the density supplies most of the impedance effect. Oil and gas velocities are close (the order flips in 26 % and 36 % of the samples of 15/9-19 A and BT2), the impedance order always holds.
 * The interpreter assumes one oil (API 25.89, gas-oil ratio 109) for all three wellbores; it matches the 15/9-19 A laboratory oil (API 25.5, gas-oil ratio 111.8) but not 15/9-19 SR (gas-oil ratio 159.1, bubble point 273.8 bar).
@@ -31,8 +31,8 @@ The Word LFP evaluation reports of 15/9-19 A and 15/9-19 B (family `word_documen
 - **Sand flag:** sand where porosity exceeds 0.1 and shale volume is below 0.5 (carbonate limits 77 us/ft and 2.65 g/cc); this replaces the earlier assumption that the sand flag only stands for net sand: it is the interpreter's own sand definition, still not a net-pay criterion.
 - **Model flag:** `LFP_MODEL = 3 - 2 * LFP_WATER` (1 for water, 3 for hydrocarbons); in 15/9-19 A the oil interval is 3821 to 3935 m MD RKB and the evaluation runs from 3500 to 4097 m MD RKB.
 - **Fluids:** the temperature and pressure equations and the oil (API 25.89, GOR 109) and gas gravities of the PDF listing are repeated and agree; salinity 150,000 ppm; matrix density 2.65 g/cc (average from core values).
-- **Elevation:** the distance RKB to MSL is 78 m in both reports (water depth 85 m), against the Sodir rotary-table elevation of the wellbore: a named value for the RT/KB monitor, not applied (DQ-142).
+- **Elevation:** the distance RKB to MSL is 78 m in both reports (water depth 85 m), against the Sodir rotary-table elevation of the wellbore: a named value for the RT/KB monitor, not applied.
 - **Still open:** the fluid-substitution model itself (Gassmann-type, assumed) and the in-situ saturation behind the oil end member.
 
-## Word report statements against the curves (mart `well_lfp_report_check`, notebook 41 section 5b)
+## Word report statements against the curves (mart `well_lfp_report_check`, the analysis notebooks section 5b)
 Each statement of the Word LFP report (evaluation interval, oil interval, sand limits, ``LFP_SUBST = LFP_SAND``, temperature and pressure lines) is tested on the curves of the LAS file; the report does not name the porosity curve of the sand rule or the depth basis of the trend lines, so alternatives are tried and the better one is reported (``config/adapters/volve.yaml`` ``lfp.report_to_curve``, ``report_check``: tolerances are assumptions; the BT2 report file is assumed to describe the BT2 curves). Result: the oil interval (3821-3935 m MD) equals the span of model flag 3 to 0.1 m; the sand flag follows the stated limits with the effective porosity (99.8 to 100 % of samples) and less well with the total porosity; the substitution flag equals the sand flag; temperature and pressure are the stated straight lines against MD RKB (residual 0.00 to 0.09), so the pressure gradient (0.092-0.094 bar per metre MD) is not a hydrostatic gradient in a deviated well; the BT2 curve ends 20 m above the stated total depth.
