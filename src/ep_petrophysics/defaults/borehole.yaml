@@ -1,0 +1,45 @@
+# Borehole size, calipers and casing points (docs/borehole.md, src/processing/borehole.py).  Every threshold here is an ASSUMPTION (placeholder) until a source states it: the classes are screening labels, never a
+# verdict on a hole.  Ratios are caliper diameter / bit size of the same section.
+condition:
+  tight_below: 0.97          # caliper below this share of the bit size: under gauge (swelling or mud cake, or a worn bit / caliper offset)
+  gauge_to: 1.05             # up to here: in gauge (a caliper reads a little over the bit in a normal hole)
+  enlarged_to: 1.20          # above gauge and up to here: enlarged; above this: washout
+  washout_share_flag: 0.10   # a section with at least this share of bins at the washout ratio is flagged has_washouts although its median is in gauge
+  washout_ratio: 1.20        # share of bins at or above this ratio is reported as washed_out_share
+channel_priority: [caliper_average, hole_diameter, caliper_axis]      # which curve represents a section when several exist (an average over the axes beats one axis)
+nominal_spread_mm: 0.5       # a channel whose 10-90 % spread and offset from the bit size are both below this is the bit size repeated (nominal), not a caliper
+max_md_m: 12000.0          # a parameter depth above this is a placeholder (15240 m = 50000 ft in the production logs), not a depth
+min_coverage: 0.3          # a section statistic needs bins over this share of the declared section length (a run that only reaches the section's tail has not logged it)
+min_bins: 5                 # a section statistic needs at least this many 1 m bins, else it is blank
+casing:
+  shoe_tolerance_m: 25.0     # a bit-size section starts within this distance of a casing shoe (log depths and report depths differ by rig moves, datum and rounding; Adam: RT/RKB, monitored)
+  clearance_min_mm: 5.0      # a casing outer diameter this close to, or larger than, the hole it was run in is flagged (hole smaller than casing: depth or size mismatch)
+cased_hole:
+  tolerance_mm: 12.0         # caliper minus casing inner diameter inside this band is "agrees" (a pipe caliper reads the inner diameter; wear and scale lower it, corrosion raises it)
+exposure:
+  max_days: 60.0             # ASSUMPTION: a file created longer than this after the section was drilled carries a processing time (a composite), not the logging time; such sections are left out of the relation
+  min_wells: 5              # a rank correlation of exposure time with enlargement is stated only for this many wellbores
+pretest:
+  water_gradient_bar_per_m: 0.1005   # seawater 1.025 sg, the hydrostatic reference of config/pore_pressure.yaml (seawater_gradient_bar_per_m); a brine would be higher (the band is in config/pressure.yaml)
+  implausible_below_share: 0.8       # ASSUMPTION: a pretest below this share of the water gradient is not a formation pressure (a tight test or a lost seal reads low)
+log_response:
+  min_coverage: 0.5                  # a response statistic needs log bins over this share of the interval length
+tops:
+  precedence: picks                  # picks | sodir | both. Adam, 2026-11-06: the interpretation picks rank above or equal to the Sodir tops; to be reviewed with other sources
+
+# Cement bond (integrity logs) and production logging: limits are ASSUMPTIONS until a reviewed source states them (requests req.101, req.102); a bond class is not a barrier verdict
+cement:
+  good_bond: 0.8                 # bond index at or above: classed good
+  moderate_bond: 0.5             # from here to good: moderate; below: poor
+  gap_m: 2.0                     # a stretch of good bond may be interrupted by gaps of at most this length
+  constant_share: 0.8            # an index with this share of bins at one value is not a measurement (a default or an uncomputed channel)
+plt:
+  min_pressure_bar: 50.0         # a log pressure below this is not a downhole pressure (surface or atmospheric)
+  min_bins: 8                    # bins (5 m) needed for a pressure gradient
+  min_tvd_span_m: 50.0           # vertical span needed for a pressure gradient (a near-horizontal section gives none)
+  gauge_max_distance_m: 150.0    # the log pressure is compared with the permanent gauge only when the log reaches within this distance of the gauge MD
+  window_tvd_m: 200.0            # the gradient is fitted in windows of this vertical thickness (step: half a window): one line over a whole well would average gas, oil and water
+  max_spread_bar: 3.0            # mean pressure spread between passes above which the pressure changed in time and the window gives no gradient
+  gas_below_bar_per_m: 0.04      # ASSUMPTION: equivalent density classes of a measured gradient (about 0.41 sg), a live oil between this and the water limit
+  water_from_bar_per_m: 0.085
+  water_to_bar_per_m: 0.115
